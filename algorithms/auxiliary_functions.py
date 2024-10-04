@@ -22,7 +22,7 @@ class Context:
         self.start = start_cell
         self.end = end_cell
 
-def create_context(part, seed=None):
+def create_context(part: list[int], seed=None):
     x, y, width, height = part
     grid_class = Grid(x, y, width, height)
     grid, start, end,  = grid_class.prim_maze(seed=seed)
@@ -44,14 +44,14 @@ def heuristic(p1: tuple, p2: tuple):
     x2, y2 = p2
     return abs(x1 - x2) + abs(y1 - y2)
 
-def reconstruct_path(came_from: dict, start: Cells, current: Cells, draw: Cells.draw):
+def reconstruct_path(came_from: dict, start: Cells, current: Cells, draw: callable):
     while current in came_from:
         current = came_from[current]
         if current != start:
             current.make_color("PATH")
         draw()
         
-def reconstruct_path_with_wavefront(grid, distances, start, end, draw):
+def reconstruct_path_with_wavefront(grid: list[list[int]], distances: list[list[int]], start: Cells, end: Cells, draw: callable):
     path = []
     current = end
     current_pos = current.get_pos()
@@ -72,7 +72,7 @@ def reconstruct_path_with_wavefront(grid, distances, start, end, draw):
     path.append(start)
     path.reverse()
         
-def interpolate_path(grid, draw, p1, p2, end):
+def interpolate_path(grid: list[list[int]], draw: callable, p1: Cells, p2: Cells, end: Cells):
         x1, y1 = p1
         x2, y2 = p2
         dx = x2 - x1
@@ -92,7 +92,7 @@ def interpolate_path(grid, draw, p1, p2, end):
                 cell.make_color("PATH")
             draw()
 
-def is_walkable(grid, x, y):
+def is_walkable(grid: list[list[int]], x: int, y: int):
     if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
         return False
     cell = grid[x][y]

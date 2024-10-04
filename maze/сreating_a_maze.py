@@ -10,7 +10,7 @@ sc = pygame.display.set_mode(window_config.screenSize)
 PADDING = 10
 BORDER_THICKNESS = 20
 
-def divide_window(screen_width, screen_height, num_parts):
+def divide_window(screen_width: int, screen_height: int, num_parts: int):
     parts = []
     
     cols = math.ceil(math.sqrt(num_parts))
@@ -34,7 +34,7 @@ def divide_window(screen_width, screen_height, num_parts):
     return parts
 
 class Cells:
-    def __init__(self, x, y, grid_x, grid_y):
+    def __init__(self, x: int, y: int, grid_x: int, grid_y: int):
         self.row = x
         self.col = y
         self.x = grid_x + x * window_config.cellSize
@@ -45,7 +45,7 @@ class Cells:
     def get_pos(self):
         return (self.row, self.col)
     
-    def check_color(self, color_type):
+    def check_color(self, color_type: dict):
         color_map = {
             'closed': color_config.color_red,
             'open': color_config.color_green,
@@ -70,7 +70,7 @@ class Cells:
     def draw(self):
         pygame.draw.rect(sc, self.color, (self.x, self.y, window_config.cellSize, window_config.cellSize))
 
-    def _update_neighbors(self, grid):
+    def _update_neighbors(self, grid: list[list[int]]):
         self.neighbors = []
 
         if self.row > 0 and not grid[self.row - 1][self.col].check_color("wall"):  # UP
@@ -86,7 +86,7 @@ class Cells:
         return False
 
 class Grid:
-    def __init__(self, x, y, width, height, cellSize=window_config.cellSize):
+    def __init__(self, x: int, y: int, width: int, height: int, cellSize: int = window_config.cellSize):
         self.x = x
         self.y = y
         self.width = width
@@ -116,7 +116,7 @@ class Grid:
                             (self.x + j * self.cellSize, self.y), 
                             (self.x + j * self.cellSize, self.y + self.height), 1)
 
-    def draw(self, grid):
+    def draw(self, grid: list[list[int]]):
         sc.fill(color_config.color_white, pygame.Rect(self.x, self.y, self.width, self.height))
         pygame.draw.rect(sc, color_config.color_frame, (
                         self.x - BORDER_THICKNESS // 2, self.y - BORDER_THICKNESS // 2, 
@@ -128,7 +128,7 @@ class Grid:
         self._draw_grid()
         pygame.display.update()
 
-    def prim_maze(self, seed=None):
+    def prim_maze(self, seed: int = None):
         grid = self._make_grid()
         if seed is not None:
             random.seed(seed)
@@ -139,7 +139,7 @@ class Grid:
         end_cell.make_color("PURPLE")
         
         walls = []
-        def add_walls(cell):
+        def add_walls(cell: Cells):
             row, col = cell.row, cell.col
             directions = [
                 (row - 2, col, row - 1, col), (row + 2, col, row + 1, col),
