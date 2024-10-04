@@ -1,14 +1,14 @@
 # Pathfinding Algorithm Tester
 
-This program is designed to provide simple testing of pathfinding algorithms within the same maze environment. The modular structure of the code allows for easy algorithm swapping without changing the core logic of the program.
+This program is designed to provide simple testing of pathfinding algorithms within the same maze environment.
+The modular structure of the code allows for easy algorithm swapping without changing the core logic of the program.
 
 ## Features
 - Modular design
 - Support for multiple pathfinding algorithms
 - Simple graphical representation of the maze using `pygame`
-- 
+  
 ### Prerequisites
-
 Ensure you have Python installed on your system. 
 To install the required library `pygame`, use the following command:
     pip install pygame
