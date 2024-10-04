@@ -22,7 +22,7 @@ class Context:
         self.start = start_cell
         self.end = end_cell
 
-def create_context(part: list[int], seed=None):
+def create_context(part: list[int], seed: int = None):
     x, y, width, height = part
     grid_class = Grid(x, y, width, height)
     grid, start, end,  = grid_class.prim_maze(seed=seed)
